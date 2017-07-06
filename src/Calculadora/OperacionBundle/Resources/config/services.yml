@@ -1,0 +1,7 @@
+parameters:
+#    operacion.example.class: Calculadora\OperacionBundle\Example
+
+services:
+#    operacion.example:
+#        class: %operacion.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

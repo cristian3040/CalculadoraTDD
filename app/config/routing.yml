@@ -1,0 +1,4 @@
+operacion:
+    resource: "@OperacionBundle/Resources/config/routing.yml"
+    prefix:   /
+

@@ -1,0 +1,3 @@
+services:
+    mi.calculadora:
+        class: Calculadora\OperacionBundle\Util\Calculadora

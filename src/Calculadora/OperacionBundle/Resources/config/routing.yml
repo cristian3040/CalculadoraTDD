@@ -1,0 +1,3 @@
+operacion_homepage:
+    path:     /hello
+    defaults: { _controller: OperacionBundle:Default:index }
