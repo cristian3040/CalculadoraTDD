@@ -37,6 +37,22 @@ class CalculadoraTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals($resultado, -2);
 	}
 
+	public function testMultiplica()
+	{
+		$resultado = $this->calculadora->hacerMultiplica(50,3);
+		$this->assertEquals($resultado, 150);
+	}
+
+	public function testDivide()
+	{
+		$resultado = $this->calculadora->hacerDivide(4,2);
+		$this->assertEquals($resultado, 2);
+		$resultado = $this->calculadora->hacerDivide(3,2);
+		$this->assertEquals($resultado, 1.5);
+	}
+
+	
+
 	public function testComprobarLimites()
 	{
 		$this->assertEquals($this->calculadora->getMaximo(), 100);
@@ -78,13 +94,58 @@ class CalculadoraTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals($cadena, false);
 	}
 
-	/*public function testRealizarOperacion()
+	public function testRealizarOperacion()
 	{
-		$cadena = array("1", "+", "1", "+", "1");
+		$cadena = array("1", "+", "2", "-", "3", "*", "7");
 		$operacion = $this->calculadora->realizarOperacion($cadena);
-		$this->assertEquals($operacion, 6);
-		
-	}*/
+		$this->assertEquals($operacion, 0);
+
+		$cadena = array("1", "-", "2", "-", "3", "*", "7");
+		$operacion = $this->calculadora->realizarOperacion($cadena);
+		$this->assertEquals($operacion, -28);
+
+		$cadena = array("1", "*", "2", "*", "3", "*", "7");
+		$operacion = $this->calculadora->realizarOperacion($cadena);
+		$this->assertEquals($operacion, 42);
+
+		$cadena = array("1", "-", "2", "+", "3", "*", "7");
+		$operacion = $this->calculadora->realizarOperacion($cadena);
+		$this->assertEquals($operacion, 14);
+
+		$cadena = array("5", "+", "4", "*", "2");
+		$operacion = $this->calculadora->realizarOperacion($cadena);
+		$this->assertEquals($operacion, 18);
+
+		$cadena = array("5", "+", "4", "*", "2", "/", "4");
+		$operacion = $this->calculadora->realizarOperacion($cadena);
+		$this->assertEquals($operacion, 4.5);
+
+		$cadena = array("-2", "+", "2");
+		$operacion = $this->calculadora->realizarOperacion($cadena);
+		$this->assertEquals($operacion, 0);
+	}
+
+	public function testIdentificarOperacion()
+	{
+		$operacion = $this->calculadora->identificarOperacion('1', '3', '-');
+		$this->assertEquals($operacion, -2);
+		$operacion = $this->calculadora->identificarOperacion('5', '8', '+');
+		$this->assertEquals($operacion, 13);
+		$operacion = $this->calculadora->identificarOperacion('4', '3', '*');
+		$this->assertEquals($operacion, 12);
+	}
+
+	public function testEsOperador()
+	{
+		$operacion = $this->calculadora->esOperador("+");
+		$this->assertEquals($operacion, true);
+		$operacion = $this->calculadora->esOperador("*");
+		$this->assertEquals($operacion, true);
+		$operacion = $this->calculadora->esOperador("-");
+		$this->assertEquals($operacion, true);
+		$operacion = $this->calculadora->esOperador("/");
+		$this->assertEquals($operacion, true);
+	}
 
 
 }

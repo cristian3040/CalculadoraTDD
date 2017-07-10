@@ -14,16 +14,26 @@ class Calculadora
 
 	public function hacerSuma($operando1, $operando2)
 	{
-		$resultado = $operando1 - $operando2;
 		$valida = $this->comprobarRangosOperandos($operando1, $operando2);
 		if($valida) return $operando1 + $operando2;
 	}
 
 	public function hacerResta($operando1, $operando2)
 	{
-		$resultado = $operando1 - $operando2;
 		$valida = $this->comprobarRangosOperandos($operando1, $operando2);
 		if($valida) return $operando1 - $operando2;
+	}
+
+	public function hacerMultiplica($operando1, $operando2)
+	{
+		$valida = $this->comprobarRangosOperandos($operando1, $operando2);
+		if($valida) return $operando1 * $operando2;
+	}
+
+	public function hacerDivide($operando1, $operando2)
+	{
+		$valida = $this->comprobarRangosOperandos($operando1, $operando2);
+		if($valida) return $operando1 / $operando2;
 	}
 
 	public function comprobarRangosOperandos($operando1, $operando2){
@@ -33,8 +43,6 @@ class Calculadora
 
 	public function comprobarRangoResultado($resultado){
 		if($resultado < $this->getMinimo() || $resultado > $this->getMaximo()) return false;
-		throw new Exception("Error Processing Request", 1);
-		
 		return true;
 	}
 
@@ -44,16 +52,41 @@ class Calculadora
 		return $tokens;
 	}
 
-	/*public function realizarOperacion($cadena)
+	public function esOperador($cadena)
 	{
+		$operadores = "+-*/";
+		if(is_numeric(strpos($operadores, $cadena)))return true;
+		return false;
+		
+	}
+
+	public function identificarOperacion($op1, $op2, $op)
+	{
+		switch ($op) {
+			case '+':
+				return $this->hacerSuma($op1, $op2);
+			case '-':
+				return $this->hacerResta($op1, $op2);
+			case '*':
+				return $this->hacerMultiplica($op1, $op2);
+			case '/':
+				return $this->hacerDivide($op1, $op2);
+		}
+	}
+
+    public function realizarOperacion($cadena)
+	{
+		$op1 = $cadena[0];
 		$operacion = 0;
-		for ($i=1; $i < count($cadena)-1; $i = $i + 2) { 
-			$op = $this->hacerSuma($cadena[$i-1],$cadena[$i+1]);
-			$operacion += $op;
-			
+		for ($i = 0; $i < count($cadena)-1; $i++){ 
+			if($this->esOperador($cadena[$i])){
+				if($i == 1) $operacion = $this->identificarOperacion($op1, $cadena[$i+1], $cadena[$i]);
+				else $operacion = $this->identificarOperacion($operacion, $cadena[$i+1], $cadena[$i]);
+			}
 		}
 		return $operacion;
-	}*/
+	}
+		
 
 	/**
      * @return mixed
